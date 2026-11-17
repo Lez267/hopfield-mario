@@ -6,7 +6,7 @@ public class MImage {
         // Ruta de la carpeta donde se guardan los archivos .txt de las figuras
         String ruta = "datasets/";
 
-        // 1. LEER LOS 5 PATRONES DESDE LOS ARCHIVOS TXT
+        // 1. LEER LOS 5 PATRONES (figuras de 10x10 = 100 pixeles)
         // 1. Mario
         int[] mario = new int[100];
         java.util.Scanner sc1 = new java.util.Scanner(new java.io.File(ruta + "mario.txt"));
@@ -103,7 +103,7 @@ public class MImage {
             if (flor[k] == 0)     flor[k] = -1;
         }
 
-        // 4. Matrices de 100x100 para cada patron
+        // 4. Matrices de memoria N*N (figura 10x10 = 100 pixeles, matriz de 100x100)
         int N = 100;
         int[][] m1 = new int[N][N];
         int[][] m2 = new int[N][N];
