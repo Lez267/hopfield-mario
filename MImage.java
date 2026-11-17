@@ -47,29 +47,29 @@ public class MImage {
         }
         sc5.close();
 
-        // 2. IMPRIMIR LOS PATRONES EN PANTALLA
+        // 2. IMPRIMIR LOS PATRONES EN PANTALLA (CON CUADROS ██)
         System.out.println("Patrón 1: Mario");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print(mario[f * 10 + c] + " ");
+                System.out.print(mario[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
         System.out.println();
 
-        System.out.println("Patrón 2: Hongo");
+        System.out.println("Patrón 2: Super Hongo");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print(hongo[f * 10 + c] + " ");
+                System.out.print(hongo[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
         System.out.println();
 
-        System.out.println("Patrón 3: Estrella");
+        System.out.println("Patrón 3: Super Estrella");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print(estrella[f * 10 + c] + " ");
+                System.out.print(estrella[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
@@ -78,7 +78,7 @@ public class MImage {
         System.out.println("Patrón 4: Goomba");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print(goomba[f * 10 + c] + " ");
+                System.out.print(goomba[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
@@ -87,13 +87,13 @@ public class MImage {
         System.out.println("Patrón 5: Flor de Fuego");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print(flor[f * 10 + c] + " ");
+                System.out.print(flor[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
         System.out.println();
 
-        // 3. REEMPLAZAR CEROS POR -1
+        // 3. REEMPLAZAR CEROS POR -1 (REPRESENTACIÓN BIPOLAR)
         for (int k = 0; k < 100; k++) {
             if (mario[k] == 0)    mario[k] = -1;
             if (hongo[k] == 0)    hongo[k] = -1;
@@ -148,16 +148,16 @@ public class MImage {
             }
         }
 
-        System.out.println("--- PATRÓN DE ENTRADA (A BUSCAR) ---");
+        System.out.println("--- PATRÓN DE ENTRADA (CON RUIDO A BUSCAR) ---");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
-                System.out.print((entrada[f * 10 + c] > 0 ? 1 : 0) + " ");
+                System.out.print(entrada[f * 10 + c] == 1 ? "██" : "  ");
             }
             System.out.println();
         }
         System.out.println();
 
-        // 8. BÚSQUEDA Y RECUPERACIÓN
+        // 8. BÚSQUEDA Y RECUPERACIÓN (PROCESO ITERATIVO)
         int encontrado = 0;
         int iteracion = 1;
 
@@ -181,10 +181,10 @@ public class MImage {
                 }
             }
 
-            // Imprimir el estado actual
+            // Imprimir el estado actual en cuadros ██
             for (int f = 0; f < 10; f++) {
                 for (int c = 0; c < 10; c++) {
-                    System.out.print((producto[f * 10 + c] > 0 ? 1 : 0) + " ");
+                    System.out.print(producto[f * 10 + c] == 1 ? "██" : "  ");
                 }
                 System.out.println();
             }
@@ -200,9 +200,47 @@ public class MImage {
             }
 
             if (encontrado == 1) {
-                System.out.println("¡ENCONTRADO!");
+                // Identificar a cuál de los 5 personajes corresponde el resultado
+                int cMario = 0;
+                int cHongo = 0;
+                int cEstrella = 0;
+                int cGoomba = 0;
+                int cFlor = 0;
 
-                // Guardar el resultado final en resultado.txt
+                for (int i = 0; i < N; i++) {
+                    if (producto[i] == mario[i]) cMario++;
+                    if (producto[i] == hongo[i]) cHongo++;
+                    if (producto[i] == estrella[i]) cEstrella++;
+                    if (producto[i] == goomba[i]) cGoomba++;
+                    if (producto[i] == flor[i]) cFlor++;
+                }
+
+                int mayor = cMario;
+                String personaje = "Mario (Patrón 1)";
+                if (cHongo > mayor) {
+                    mayor = cHongo;
+                    personaje = "Super Hongo (Patrón 2)";
+                }
+                if (cEstrella > mayor) {
+                    mayor = cEstrella;
+                    personaje = "Super Estrella (Patrón 3)";
+                }
+                if (cGoomba > mayor) {
+                    mayor = cGoomba;
+                    personaje = "Goomba (Patrón 4)";
+                }
+                if (cFlor > mayor) {
+                    mayor = cFlor;
+                    personaje = "Flor de Fuego (Patrón 5)";
+                }
+
+                System.out.println("==============================================");
+                System.out.println("               ¡ENCONTRADO!                   ");
+                System.out.println("  Personaje reconocido : " + personaje);
+                System.out.println("  Coincidencia         : " + mayor + "%");
+                System.out.println("==============================================\n");
+
+                // Guardar el resultado final en resultado.txt (formato 0 y 1 para datasets)
                 java.io.PrintWriter pw = new java.io.PrintWriter(ruta + "resultado.txt");
                 for (int f = 0; f < 10; f++) {
                     for (int c = 0; c < 10; c++) {
@@ -211,7 +249,7 @@ public class MImage {
                     pw.println();
                 }
                 pw.close();
-                System.out.println("Guardado con éxito en: " + ruta + "resultado.txt");
+                System.out.println("Guardado con éxito en: " + ruta + "resultado.txt\n");
 
             } else {
                 for (int i = 0; i < N; i++) {
