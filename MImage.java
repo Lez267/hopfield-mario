@@ -102,7 +102,7 @@ public class MImage {
             if (flor[k] == 0)     flor[k] = -1;
         }
 
-        // 4. MATRICES DE CONEXIONES PARA CADA PATRÓN
+        // 4. Matrices de 100x100 para cada patron
         int N = 100;
         int[][] m1 = new int[N][N];
         int[][] m2 = new int[N][N];
@@ -110,6 +110,7 @@ public class MImage {
         int[][] m4 = new int[N][N];
         int[][] m5 = new int[N][N];
 
+        // producto cruzado pixel por pixel (X * X transpuesta)
         for (int a = 0; a < N; a++) {
             for (int t = 0; t < N; t++) {
                 m1[a][t] = mario[a] * mario[t];
@@ -120,7 +121,7 @@ public class MImage {
             }
         }
 
-        // 5. SUMAR TODAS LAS MATRICES EN LA MATRIZ TOTAL DE PESOS
+        // suma de memorias de las 5 figuras
         int[][] mTotal = new int[N][N];
         for (int i = 0; i < N; i++) {
             for (int a = 0; a < N; a++) {
@@ -128,7 +129,7 @@ public class MImage {
             }
         }
 
-        // 6. PONER LA DIAGONAL PRINCIPAL EN CEROS
+        // diagonal en ceros (fila y columna iguales [i][i])
         for (int i = 0; i < N; i++) {
             mTotal[i][i] = 0;
         }
@@ -164,7 +165,7 @@ public class MImage {
         while (encontrado == 0) {
             System.out.println("Iteración " + iteracion + ":");
 
-            // Multiplicación: entrada * mTotal
+            // multiplicar vector entrada * matriz de memoria
             int[] producto = new int[N];
             for (int f = 0; f < N; f++) {
                 for (int c = 0; c < N; c++) {
@@ -172,7 +173,7 @@ public class MImage {
                 }
             }
 
-            // Función de activación: si > 0 pone 1, si no pone -1
+            // funcion de activacion: si > 0 es 1, si no es -1
             for (int i = 0; i < N; i++) {
                 if (producto[i] > 0) {
                     producto[i] = 1;
@@ -181,7 +182,7 @@ public class MImage {
                 }
             }
 
-            // Imprimir el estado actual en cuadros ██
+            // imprimir estado actual en cuadros
             for (int f = 0; f < 10; f++) {
                 for (int c = 0; c < 10; c++) {
                     System.out.print(producto[f * 10 + c] == 1 ? "██" : "  ");
@@ -190,7 +191,7 @@ public class MImage {
             }
             System.out.println();
 
-            // Comprobar si entrada y producto son exactamente iguales
+            // revisar si ya no cambio ningun pixel
             encontrado = 1;
             for (int i = 0; i < N; i++) {
                 if (entrada[i] != producto[i]) {
