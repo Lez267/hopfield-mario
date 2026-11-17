@@ -240,11 +240,9 @@ public class MImage {
                     personaje = "Flor de Fuego (Patrón 5)";
                 }
 
-                System.out.println("==============================================");
-                System.out.println("               ¡ENCONTRADO!                   ");
-                System.out.println("  Personaje reconocido : " + personaje);
-                System.out.println("  Coincidencia         : " + mayor + "%");
-                System.out.println("==============================================\n");
+                System.out.println("¡ENCONTRADO!");
+                System.out.println("Personaje reconocido: " + personaje);
+                System.out.println("Coincidencia: " + mayor + "%\n");
 
                 // PASO 6 (GUARDAR): Guarda la figura recuperada limpia en resultado.txt
                 java.io.PrintWriter pw = new java.io.PrintWriter(ruta + "resultado.txt");
