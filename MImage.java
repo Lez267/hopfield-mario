@@ -160,13 +160,14 @@ public class MImage {
         System.out.println();
 
         // 8. BÚSQUEDA Y RECUPERACIÓN (PROCESO ITERATIVO)
+        // La red busca corrigiendo pixeles dañados hasta estabilizarse
         int encontrado = 0;
         int iteracion = 1;
 
         while (encontrado == 0) {
             System.out.println("Iteración " + iteracion + ":");
 
-            // multiplicar vector entrada * matriz de memoria
+            // PASO 1 (BUSCAR): Multiplica el patron por la matriz de memoria (suma de pesos)
             int[] producto = new int[N];
             for (int f = 0; f < N; f++) {
                 for (int c = 0; c < N; c++) {
@@ -174,7 +175,7 @@ public class MImage {
                 }
             }
 
-            // funcion de activacion: si > 0 es 1, si no es -1
+            // PASO 2 (CORREGIR PIXELES): Funcion de activacion bipolar (si > 0 es 1, si no es -1)
             for (int i = 0; i < N; i++) {
                 if (producto[i] > 0) {
                     producto[i] = 1;
@@ -183,7 +184,7 @@ public class MImage {
                 }
             }
 
-            // imprimir estado actual en cuadros
+            // PASO 3: Imprimir como va quedando la figura en esta iteracion
             for (int f = 0; f < 10; f++) {
                 for (int c = 0; c < 10; c++) {
                     System.out.print(producto[f * 10 + c] == 1 ? "██" : "  ");
@@ -192,7 +193,8 @@ public class MImage {
             }
             System.out.println();
 
-            // revisar si ya no cambio ningun pixel
+            // PASO 4 (COMO SABE SI LO ENCONTRO): Compara entrada con producto.
+            // Si son exactamente iguales en todos los pixeles, la red ya es estable (convergio)
             encontrado = 1;
             for (int i = 0; i < N; i++) {
                 if (entrada[i] != producto[i]) {
@@ -202,7 +204,8 @@ public class MImage {
             }
 
             if (encontrado == 1) {
-                // Identificar a cuál de los 5 personajes corresponde el resultado
+                // PASO 5 (IDENTIFICAR CUAL PERSONAJE ES):
+                // Cuenta coincidencias de pixeles del resultado final con cada una de las 5 figuras originales
                 int cMario = 0;
                 int cHongo = 0;
                 int cEstrella = 0;
@@ -217,6 +220,7 @@ public class MImage {
                     if (producto[i] == flor[i]) cFlor++;
                 }
 
+                // El que tenga mayor coincidencia es el personaje que la red reconocio
                 int mayor = cMario;
                 String personaje = "Mario (Patrón 1)";
                 if (cHongo > mayor) {
@@ -236,13 +240,13 @@ public class MImage {
                     personaje = "Flor de Fuego (Patrón 5)";
                 }
 
-                
-                System.out.println("               ENCONTRADO                   ");
+                System.out.println("==============================================");
+                System.out.println("               ¡ENCONTRADO!                   ");
                 System.out.println("  Personaje reconocido : " + personaje);
                 System.out.println("  Coincidencia         : " + mayor + "%");
-                
+                System.out.println("==============================================\n");
 
-                // Guardar el resultado final en resultado.txt (formato 0 y 1 para datasets)
+                // PASO 6 (GUARDAR): Guarda la figura recuperada limpia en resultado.txt
                 java.io.PrintWriter pw = new java.io.PrintWriter(ruta + "resultado.txt");
                 for (int f = 0; f < 10; f++) {
                     for (int c = 0; c < 10; c++) {
@@ -254,6 +258,7 @@ public class MImage {
                 System.out.println("Guardado con éxito en: " + ruta + "resultado.txt\n");
 
             } else {
+                // SI AUN NO LO ENCUENTRA: El resultado se vuelve la nueva entrada y repite el ciclo
                 for (int i = 0; i < N; i++) {
                     entrada[i] = producto[i];
                 }
