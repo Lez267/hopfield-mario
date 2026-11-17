@@ -1,19 +1,18 @@
-# Red Neuronal de Hopfield - Temática Mario Bros (10x10)
+# Red de Hopfield - Mario Bros (10x10)
 
-Implementación en Java de una Red Neuronal de Hopfield para memoria asociativa y recuperación de patrones en una matriz de 10x10 ($N = 100$ neuronas), desarrollada sin librerías externas ni módulos adicionales (únicamente arreglos y ciclos nativos).
+Proyecto en Java que usa una Red Neuronal de Hopfield para memorizar y reconocer figuras de Mario Bros en cuadrículas de 10x10 píxeles.
 
-## Estructura del Proyecto
-* `MImage.java`: Código fuente principal de la red de Hopfield.
-* `datasets/`: Carpeta con los archivos de texto que contienen las matrices de 10x10 en ceros y unos:
-  * `mario.txt` (Patrón 1: Mario)
-  * `hongo.txt` (Patrón 2: Super Hongo)
-  * `estrella.txt` (Patrón 3: Super Estrella)
-  * `goomba.txt` (Patrón 4: Goomba)
-  * `flor.txt` (Patrón 5: Flor de Fuego)
-  * `entrada.txt` (Patrón de prueba / entrada con ruido a recuperar)
-  * `resultado.txt` (Patrón resultante recuperado generado por la red)
+Hecho sin librerías externas, usando solo arreglos básicos y ciclos for/while.
 
-## Compilación y Ejecución
+## ¿Qué hay en este proyecto?
+* **MImage.java**: El código principal que calcula la red neuronal.
+* **datasets/**: Carpeta con los dibujos hechos con ceros y unos:
+  * `mario.txt`, `hongo.txt`, `estrella.txt`, `goomba.txt`, `flor.txt`: Las 5 figuras que la red aprende de memoria.
+  * `entrada.txt`: La figura de prueba que le damos a la red para ver si la adivina.
+  * `resultado.txt`: Donde la red guarda la figura limpia y restaurada cuando termina.
+
+## Cómo correr el proyecto
+En la terminal escribe:
 ```bash
 javac MImage.java
 java MImage
