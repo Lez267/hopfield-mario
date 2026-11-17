@@ -47,7 +47,7 @@ public class MImage {
         }
         sc5.close();
 
-        // 2. IMPRIMIR LOS PATRONES EN PANTALLA (CON CUADROS ██)
+        // 2. IMPRIMIR LOS PATRONES EN PANTALLA (CON CUADROS)
         System.out.println("Patrón 1: Mario");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
@@ -234,11 +234,11 @@ public class MImage {
                     personaje = "Flor de Fuego (Patrón 5)";
                 }
 
-                System.out.println("==============================================");
-                System.out.println("               ¡ENCONTRADO!                   ");
+                
+                System.out.println("               ENCONTRADO                   ");
                 System.out.println("  Personaje reconocido : " + personaje);
                 System.out.println("  Coincidencia         : " + mayor + "%");
-                System.out.println("==============================================\n");
+                
 
                 // Guardar el resultado final en resultado.txt (formato 0 y 1 para datasets)
                 java.io.PrintWriter pw = new java.io.PrintWriter(ruta + "resultado.txt");
