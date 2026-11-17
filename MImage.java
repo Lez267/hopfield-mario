@@ -48,6 +48,7 @@ public class MImage {
         sc5.close();
 
         // 2. IMPRIMIR LOS PATRONES EN PANTALLA (CON CUADROS)
+        // se usa [f * 10 + c] para recorrer la cuadricula 10x10 en el arreglo plano
         System.out.println("Patrón 1: Mario");
         for (int f = 0; f < 10; f++) {
             for (int c = 0; c < 10; c++) {
